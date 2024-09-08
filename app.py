@@ -22,7 +22,7 @@ def analyze_sentiment():
 
         # Set the OpenAI API key
         # openai.api_key = os.getenv("OPENAI_API_KEY")
-        openai.api_key = "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" # api key
+        openai.api_key = "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" # api key
 
         # Make a request to the OpenAI GPT-3.5 API
         response = openai.ChatCompletion.create(
