@@ -45,5 +45,3 @@ def analyze_sentiment():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-app.run()
