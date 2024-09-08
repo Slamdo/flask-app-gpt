@@ -21,7 +21,8 @@ def analyze_sentiment():
         text = request.json.get("text")
 
         # Set the OpenAI API key
-        openai.api_key = os.getenv("OPENAI_API_KEY")
+        # openai.api_key = os.getenv("OPENAI_API_KEY")
+        openai.api_key = "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" # api key
 
         # Make a request to the OpenAI GPT-3.5 API
         response = openai.ChatCompletion.create(
@@ -29,31 +30,20 @@ def analyze_sentiment():
             messages=[
                 {
                     "role": "system",
-                    "content": "Analyze the sentiment of the following text:",
+                    # prompt
+                    "content": "บอกคำของศัพท์แสลงภาษาอังกฤษ บอกเป็นภาษาไทย แยกเป็นคำ::",
                 },
                 {"role": "user", "content": text},
             ],
         )
 
         # Extract the sentiment from the response
-        sentiment_response = response["choices"][0]["message"]["content"].strip()
-        # print(sentiment_response)
+        sum_response = response["choices"][0]["message"]["content"].strip()
 
-        # Assuming that sentiment_response contains the sentiment in neg, neu, or pos format
-        if "neg" in sentiment_response.lower():
-            sentiment = "neg"
-        elif "neu" in sentiment_response.lower():
-            sentiment = "neu"
-        elif "pos" in sentiment_response.lower():
-            sentiment = "pos"
-        else:
-            sentiment = "unknown"
 
-        return jsonify({"sentiment": sentiment})
+        return jsonify({"summary": sum_response})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+app.run()
